@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChefHat, LogIn, Layout } from 'lucide-react';
+import { Menu, X, LogIn, Layout } from 'lucide-react';
 import Button from './Button';
+import Mascot from './Mascot';
 import { APP_NAME, NAV_ITEMS } from '../constants';
 
 interface HeaderProps {
@@ -33,17 +34,19 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn = false, onNavigateToApp, on
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || mobileMenuOpen ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
+        isScrolled || mobileMenuOpen ? 'bg-white/95 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="bg-brand-600 p-1.5 rounded-lg text-white">
-              <ChefHat size={24} strokeWidth={2.5} />
+          {/* Brand Logo */}
+          <div className="flex items-center gap-3 cursor-pointer group select-none" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <div className="relative group-hover:scale-110 transition-transform duration-300 drop-shadow-sm">
+              <Mascot pose="logo" size={48} animate={false} />
             </div>
-            <span className="text-xl font-bold tracking-tight text-slate-900">{APP_NAME}</span>
+            <span className="text-xl font-extrabold tracking-tight text-amber-950">
+              COOKETH <span className="text-brand-600">FLOW</span>
+            </span>
           </div>
 
           {/* Desktop Nav */}
@@ -53,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn = false, onNavigateToApp, on
                 key={item.label} 
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors"
+                className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors"
               >
                 {item.label}
               </a>

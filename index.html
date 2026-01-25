@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cooketh Flow - Think it. Map it. Cook it.</title>
+    <title>Cooketh Flow - Visual Workflow & Diagramming</title>
     <meta name="description" content="Open-source visual thinking and collaboration tool." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -15,8 +15,13 @@
               brand: {
                 50: '#fff7ed',
                 100: '#ffedd5',
+                200: '#fed7aa',
+                300: '#fdba74',
+                400: '#fb923c',
                 500: '#f97316',
                 600: '#ea580c',
+                700: '#c2410c',
+                800: '#9a3412',
                 900: '#7c2d12',
               },
               dark: {
@@ -29,12 +34,15 @@
             },
             fontFamily: {
               sans: ['Inter', 'system-ui', 'sans-serif'],
+              handwriting: ['"Patrick Hand"', 'cursive'],
             },
             animation: {
               'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
               'float': 'float 6s ease-in-out infinite',
               'float-delayed': 'float 6s ease-in-out 3s infinite',
+              'float-fast': 'float 4s ease-in-out infinite',
               'dash': 'dash 1s linear infinite',
+              'wiggle': 'wiggle 1s ease-in-out infinite',
             },
             keyframes: {
               fadeInUp: {
@@ -48,15 +56,21 @@
               dash: {
                 '0%': { strokeDashoffset: '24' },
                 '100%': { strokeDashoffset: '0' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(-3deg)' },
+                '50%': { transform: 'rotate(3deg)' },
               }
             }
           },
         },
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet" crossorigin="anonymous">
     <style>
       body { font-family: 'Inter', sans-serif; }
+      .font-handwriting { font-family: 'Patrick Hand', cursive; }
+      
       /* Custom scrollbar for better aesthetics */
       ::-webkit-scrollbar {
         width: 8px;
@@ -73,6 +87,20 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #94a3b8;
+      }
+      
+      /* 3D Transform Utilities */
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .transform-style-3d {
+        transform-style: preserve-3d;
+      }
+      .rotate-x-12 {
+        transform: rotateX(12deg);
+      }
+      .rotate-y-12 {
+        transform: rotateY(12deg);
       }
     </style>
   <script type="importmap">

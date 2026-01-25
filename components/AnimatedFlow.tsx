@@ -20,67 +20,75 @@ const AnimatedFlow: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full p-8 flex items-center justify-center bg-slate-50/50">
-      <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-        <defs>
-          <marker id="anim-head" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" className="fill-brand-500" />
-          </marker>
-          <marker id="anim-head-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" className="fill-slate-200" />
-          </marker>
-        </defs>
+    <div className="relative w-full h-full flex items-center justify-center bg-slate-50/50 overflow-hidden">
+      
+      {/* 
+         Container for fixed-coordinate flowchart. 
+         Width 800px matches the content bounds (40px margin + 720px content + 40px margin).
+         Height 400px.
+         Scale logic makes it responsive.
+      */}
+      <div className="relative w-[800px] h-[400px] shrink-0 transform scale-[0.55] sm:scale-[0.7] md:scale-[0.85] lg:scale-100 origin-center transition-transform duration-500">
         
-        {/* Edge 1: Start -> Process */}
-        <path 
-          d="M 120 150 C 180 150 180 150 240 150" 
-          className={`transition-all duration-1000 ease-out ${getLineClass(1)}`}
-          fill="none" 
-          markerEnd={step >= 1 ? "url(#anim-head)" : "url(#anim-head-gray)"}
-        />
+        <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-0">
+            <defs>
+            <marker id="anim-head" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" className="fill-brand-500" />
+            </marker>
+            <marker id="anim-head-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" className="fill-slate-200" />
+            </marker>
+            </defs>
+            
+            {/* Edge 1: Start -> Process (Straight) */}
+            <path 
+            d="M 160 150 L 230 150" 
+            className={`transition-all duration-1000 ease-out ${getLineClass(1)}`}
+            fill="none" 
+            markerEnd={step >= 1 ? "url(#anim-head)" : "url(#anim-head-gray)"}
+            />
 
-        {/* Edge 2: Process -> Decision */}
-        <path 
-          d="M 380 150 C 420 150 420 150 460 150" 
-          className={`transition-all duration-1000 ease-out ${getLineClass(2)}`}
-          fill="none" 
-          markerEnd={step >= 2 ? "url(#anim-head)" : "url(#anim-head-gray)"}
-        />
+            {/* Edge 2: Process -> Decision (Straight) */}
+            <path 
+            d="M 370 150 L 430 150" 
+            className={`transition-all duration-1000 ease-out ${getLineClass(2)}`}
+            fill="none" 
+            markerEnd={step >= 2 ? "url(#anim-head)" : "url(#anim-head-gray)"}
+            />
 
-        {/* Edge 3: Decision -> Database (YES) */}
-        <path 
-          d="M 530 190 C 530 250 530 250 530 280" 
-          className={`transition-all duration-1000 ease-out ${getLineClass(3)}`}
-          fill="none" 
-          markerEnd={step >= 3 ? "url(#anim-head)" : "url(#anim-head-gray)"}
-        />
+            {/* Edge 3: Decision -> Database (YES - Straight Down) */}
+            <path 
+            d="M 500 220 L 500 260" 
+            className={`transition-all duration-1000 ease-out ${getLineClass(3)}`}
+            fill="none" 
+            markerEnd={step >= 3 ? "url(#anim-head)" : "url(#anim-head-gray)"}
+            />
 
-        {/* Edge 4: Decision -> End (NO) */}
-        <path 
-          d="M 600 150 C 640 150 640 150 680 150" 
-          className={`transition-all duration-1000 ease-out ${getLineClass(3)}`}
-          fill="none" 
-          strokeDasharray="5,5"
-          markerEnd={step >= 3 ? "url(#anim-head)" : "url(#anim-head-gray)"}
-        />
-      </svg>
+            {/* Edge 4: Decision -> End (NO - Straight Right) */}
+            <path 
+            d="M 570 150 L 640 150" 
+            className={`transition-all duration-1000 ease-out ${getLineClass(3)}`}
+            fill="none" 
+            strokeDasharray="5,5"
+            markerEnd={step >= 3 ? "url(#anim-head)" : "url(#anim-head-gray)"}
+            />
+        </svg>
 
-      <div className="relative w-full max-w-4xl h-[400px]">
-        {/* Node 1: Start */}
-        <div className={`absolute top-[125px] left-0 w-[120px] h-[50px] bg-white rounded-full border-2 border-brand-500 flex items-center justify-center shadow-lg transition-all duration-700 ${getOpacity(0)}`}>
+        {/* Node 1: Start (Centered Y=150) */}
+        <div className={`absolute top-[125px] left-[40px] w-[120px] h-[50px] bg-white rounded-full border-2 border-brand-500 flex items-center justify-center shadow-lg transition-all duration-700 ${getOpacity(0)} z-10`}>
           <span className="font-bold text-slate-800">Start</span>
         </div>
 
-        {/* Node 2: Process */}
-        <div className={`absolute top-[110px] left-[240px] w-[140px] h-[80px] bg-white rounded-lg border-2 border-blue-500 flex items-center justify-center shadow-lg transition-all duration-700 delay-100 ${getOpacity(1)}`}>
+        {/* Node 2: Process (Centered Y=150) */}
+        <div className={`absolute top-[110px] left-[230px] w-[140px] h-[80px] bg-white rounded-lg border-2 border-blue-500 flex items-center justify-center shadow-lg transition-all duration-700 delay-100 ${getOpacity(1)} z-10`}>
           <div className="flex flex-col items-center">
              <FileText size={16} className="text-blue-500 mb-1"/>
              <span className="font-semibold text-sm text-slate-700">Parse Data</span>
           </div>
         </div>
 
-        {/* Node 3: Decision */}
-        <div className={`absolute top-[100px] left-[460px] w-[140px] h-[100px] flex items-center justify-center transition-all duration-700 delay-200 ${getOpacity(2)}`}>
+        {/* Node 3: Decision (Centered Y=150) */}
+        <div className={`absolute top-[100px] left-[430px] w-[140px] h-[100px] flex items-center justify-center transition-all duration-700 delay-200 ${getOpacity(2)} z-10`}>
             {/* Diamond Shape CSS */}
             <div className="w-[100px] h-[100px] bg-yellow-50 border-2 border-yellow-500 transform rotate-45 shadow-lg absolute"></div>
             <div className="relative z-10 flex flex-col items-center">
@@ -88,14 +96,15 @@ const AnimatedFlow: React.FC = () => {
             </div>
         </div>
 
-        {/* Label YES */}
-        <div className={`absolute top-[220px] left-[540px] bg-white px-1 text-[10px] font-bold text-green-600 transition-opacity duration-700 ${step >= 3 ? 'opacity-100' : 'opacity-0'}`}>YES</div>
-        {/* Label NO */}
-        <div className={`absolute top-[130px] left-[620px] bg-white px-1 text-[10px] font-bold text-red-600 transition-opacity duration-700 ${step >= 3 ? 'opacity-100' : 'opacity-0'}`}>NO</div>
+        {/* Label YES (Vertical Path) */}
+        <div className={`absolute top-[230px] left-[510px] bg-white px-1 text-[10px] font-bold text-green-600 transition-opacity duration-700 ${step >= 3 ? 'opacity-100' : 'opacity-0'} z-20`}>YES</div>
+        
+        {/* Label NO (Horizontal Path) */}
+        <div className={`absolute top-[130px] left-[600px] bg-white px-1 text-[10px] font-bold text-red-600 transition-opacity duration-700 ${step >= 3 ? 'opacity-100' : 'opacity-0'} z-20`}>NO</div>
 
 
-        {/* Node 4: Database */}
-        <div className={`absolute top-[280px] left-[460px] w-[140px] h-[80px] flex items-center justify-center transition-all duration-700 delay-300 ${getOpacity(3)}`}>
+        {/* Node 4: Database (Below Decision, Y=300) */}
+        <div className={`absolute top-[260px] left-[430px] w-[140px] h-[80px] flex items-center justify-center transition-all duration-700 delay-300 ${getOpacity(3)} z-10`}>
            <div className="absolute inset-0 bg-emerald-50 border-2 border-emerald-500 rounded-[20px] shadow-lg flex flex-col items-center justify-center">
                <div className="w-full h-4 border-b border-emerald-200 absolute top-2"></div>
                <Database size={20} className="text-emerald-600 mb-1 mt-2"/>
@@ -103,8 +112,8 @@ const AnimatedFlow: React.FC = () => {
            </div>
         </div>
 
-        {/* Node 5: End */}
-        <div className={`absolute top-[125px] left-[680px] w-[120px] h-[50px] bg-slate-100 rounded-full border-2 border-slate-400 flex items-center justify-center shadow-lg transition-all duration-700 delay-300 ${getOpacity(3)}`}>
+        {/* Node 5: End (Right of Decision, Y=150) */}
+        <div className={`absolute top-[125px] left-[640px] w-[120px] h-[50px] bg-slate-100 rounded-full border-2 border-slate-400 flex items-center justify-center shadow-lg transition-all duration-700 delay-300 ${getOpacity(3)} z-10`}>
           <span className="font-bold text-slate-600">Stop</span>
         </div>
       </div>

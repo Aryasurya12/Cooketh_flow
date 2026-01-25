@@ -15,7 +15,8 @@ export interface Feature {
 export interface UseCase {
   title: string;
   description: string;
-  image: string;
+  // image: string; // Removed in favor of diagramData
+  diagramData: MapState; // Live data for rendering
   tags: string[];
   prompt: string;
 }
@@ -80,6 +81,7 @@ export interface TextStyle {
   strikethrough?: boolean;
   align?: 'left' | 'center' | 'right';
   fontSize?: 'sm' | 'md' | 'lg' | 'xl';
+  color?: string; // Hex code or tailwind class
 }
 
 export interface NodeData {

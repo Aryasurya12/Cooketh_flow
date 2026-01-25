@@ -2,6 +2,7 @@ import React from 'react';
 import { Github, Heart, MessageCircle } from 'lucide-react';
 import Button from './Button';
 import Reveal from './Reveal';
+import Mascot from './Mascot';
 
 const Community: React.FC = () => {
   return (
@@ -11,8 +12,14 @@ const Community: React.FC = () => {
       <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px]"></div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        
+        {/* Mascot Peeking out */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 z-20 animate-float">
+             <Mascot pose="love" size={140} />
+        </div>
+
         <Reveal>
-          <div className="inline-flex items-center justify-center p-3 mb-8 bg-slate-800 rounded-full border border-slate-700 shadow-xl">
+          <div className="inline-flex items-center justify-center p-3 mb-8 bg-slate-800 rounded-full border border-slate-700 shadow-xl mt-8">
              <Heart className="text-red-500 h-5 w-5 mr-2 fill-current" />
              <span className="text-slate-300 font-medium">Loved by developers worldwide</span>
           </div>

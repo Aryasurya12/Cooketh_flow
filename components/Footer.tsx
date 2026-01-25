@@ -1,21 +1,27 @@
 import React from 'react';
 import { ChefHat } from 'lucide-react';
 import { SOCIAL_LINKS, APP_NAME } from '../constants';
+import Mascot from './Mascot';
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-slate-50 border-t border-slate-200 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
+          <div className="col-span-1 md:col-span-1 relative">
+            {/* Mascot sitting on top */}
+            <div className="absolute -top-24 left-4 animate-float-delayed pointer-events-none">
+                <Mascot pose="chef" size={80} />
+            </div>
+
+            <div className="flex items-center gap-2 mb-4 mt-2">
               <div className="bg-brand-600 p-1.5 rounded-lg text-white">
                 <ChefHat size={20} strokeWidth={2.5} />
               </div>
               <span className="text-lg font-bold text-slate-900">{APP_NAME}</span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed mb-6">
-              Think it. Map it. Cook it. <br/>
+              Think it. Map it. Ship it. <br/>
               The open-source visual thinking tool for modern teams.
             </p>
             <div className="flex space-x-4">
