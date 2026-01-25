@@ -92,11 +92,15 @@ export const LayoutService = {
         const SIBLING_GAP = 220;
         const processed = new Set<string>();
         
-        // Recursive width calculation
-        const getSubtreeWidth = (id: string): number => {
+        // Recursive width calculation with cycle detection
+        const getSubtreeWidth = (id: string, visited: Set<string> = new Set()): number => {
+             if (visited.has(id)) return SIBLING_GAP; // Cycle detected or visited in this calculation
+             visited.add(id);
+             
              const children = adj[id];
              if (!children || children.length === 0) return SIBLING_GAP;
-             return children.reduce((sum, child) => sum + getSubtreeWidth(child.id), 0);
+             
+             return children.reduce((sum, child) => sum + getSubtreeWidth(child.id, new Set(visited)), 0);
         };
 
         const layoutTree = (id: string, xOffset: number, depth: number) => {

@@ -393,7 +393,8 @@ const MapApp: React.FC<MapAppProps> = ({ initialPrompt = "", onBack, onLogout, s
 
   const handleRenameMap = (e: React.MouseEvent, mapId: string, currentTitle: string) => {
     e.stopPropagation();
-    const newTitle = prompt("Enter new map name:", currentTitle);
+    // Fix: Explicitly use window.prompt because state variable 'prompt' shadows it
+    const newTitle = window.prompt("Enter new map name:", currentTitle);
     if (newTitle && newTitle !== currentTitle) {
         const map = StorageService.loadMap(mapId);
         if (map) {
